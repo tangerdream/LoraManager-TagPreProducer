@@ -1,5 +1,4 @@
 modelscope
+google-genai
 numpy
 pandas
-hashlib
-google-genai
