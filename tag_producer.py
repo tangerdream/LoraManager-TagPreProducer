@@ -41,8 +41,8 @@ class Settings(argparse.Namespace):
         # #有道翻译
         self.translate_Youdao = True  # 是否启用有道翻译
         self.translate_Youdao_key_word = '翻译' # 启用有道翻译的关键词，必须包含中文
-        self.APP_KEY_Youdao  = '3c4cdf0cd5ebddbe'
-        self.APP_SECRET_Youdao  = 'XPo7zdNw0vzBwUDQz21XJid9IFDE3vch'
+        self.APP_KEY_Youdao  = 'yours_key'
+        self.APP_SECRET_Youdao  = 'yours_SECRET'
 
         # #代理
         self.proxy = 'http://127.0.0.1:1090'   # 代理地址, None表示不使用代理
@@ -51,7 +51,7 @@ class Settings(argparse.Namespace):
         self.GPT_Gemini = True # 是否启用Gemini
         self.GPT_Gemini_key_word = '大模型' # 启用Gemini的关键词，必须包含中文
         self.GPT_Gemini_model = "gemini-2.5-flash-preview-05-20",  # Gemini模型
-        self.GPT_Gemini_api_key = "AIzaSyDNNPG_C88D8mSGM_sOte7DeTYafTasdzw"
+        self.GPT_Gemini_api_key = "yours_key"
 
         # # roll画师串功能
         self.roll_artist = True # 是否启用roll画师串功能

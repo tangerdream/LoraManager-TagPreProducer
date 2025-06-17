@@ -121,7 +121,7 @@ def refresh_models_messages_by_path(base_models_path):
     return messages_dict
 
 
-def download_models_by_hash(hash_value, model_path, model_name=None, api_key='986b5358d1e8897a9c3a66e7ea415672'):
+def download_models_by_hash(hash_value, model_path, model_name=None, api_key=None):
     """根据哈希值下载模型"""
     try:
         api_url = f"https://civitai.com/api/v1/model-versions/by-hash/{hash_value}"
@@ -156,7 +156,7 @@ def download_refreash_json_from_modelscope(base_models_path):
     os.system(f'modelscope download --dataset tangerboom/PretagsForBot pretags.json --local_dir {base_models_path}')
 
 
-def refresh_models_messages_by_json(base_models_path, classed_dir=None,use_json_from_modelscope=True,local_json_path=None):
+def refresh_models_messages_by_json(base_models_path, classed_dir=None,use_json_from_modelscope=True,local_json_path=None,api_key=None):
     """
     "classed_dir"例子：
     classed_dir={
@@ -210,7 +210,7 @@ def refresh_models_messages_by_json(base_models_path, classed_dir=None,use_json_
                     if not os.path.exists(class_path):
                         os.mkdir(class_path)
 
-                    if not download_models_by_hash(model['model hash'], class_path, model['model file name']):
+                    if not download_models_by_hash(model['model hash'], class_path, model['model file name'],api_key):
                         warnings.warn(f"下载模型失败：{model['model file name']}")
                         continue
                     else:
@@ -219,14 +219,14 @@ def refresh_models_messages_by_json(base_models_path, classed_dir=None,use_json_
     refresh_models_messages_by_path(base_models_path)
 
 
-def run_LoraManager(base_models_path, command, classed_dir=None,use_json_from_modelscope=True,local_json_path=None):
+def run_LoraManager(base_models_path, command, classed_dir=None,use_json_from_modelscope=True,local_json_path=None,api_key=None):
     # 扫描base_models_path路径下的模型信息，计算模型哈希值，保存到models_messages.json中
     if command == '扫描全部':
         scan_all_models_messages(base_models_path)
 
     # 下载 pretags.json 并且根据json信息下载模型
     elif command == '下载更新':
-        refresh_models_messages_by_json(base_models_path,classed_dir,use_json_from_modelscope,local_json_path)
+        refresh_models_messages_by_json(base_models_path,classed_dir,use_json_from_modelscope,local_json_path,api_key)
 
     # 仅扫描base_models_path路径下的新模型，更新models_messages.json
     elif command == '本地更新':
@@ -241,8 +241,8 @@ if __name__ == "__main__":
     base_models_path = r'H:\StableAI_draw\stable-diffusion-webui\models\lora\LoraByTanger\char\琪亚娜-终焉原皮and泳装and新年'
 
 
-
-    run_LoraManager(base_models_path, '下载更新', classed_dir=None,use_json_from_modelscope=True,local_json_path=None)
+    Civita_api_key='xxxxx'
+    run_LoraManager(base_models_path, '下载更新', classed_dir=None,use_json_from_modelscope=True,local_json_path=None,api_key=Civita_api_key)
     # "classed_dir"是用来指定不同类型lora下载路径的，例子：
     # classed_dir={
     # '人物':path1,
