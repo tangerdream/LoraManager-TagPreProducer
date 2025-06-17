@@ -9,3 +9,5 @@ tag_producer用于处理标签生成和转换，基本理念是使用中文关�
 备注：以上关键字设置都可以自己换
 
 LoraManager可以通过tag_producer生成的JSON文件进行Lora的管理，可以根据json里登记的hash在C站下载lora
+
+处理好的JSON文件modelspace地址：https://www.modelscope.cn/models/tangerboom/JsonForBot/files
