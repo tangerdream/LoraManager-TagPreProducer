@@ -23,7 +23,7 @@ class Settings(argparse.Namespace):
         super().__init__(**kwargs)
 
         # #区别于英文的高级语言，用以触发关键词
-        self.supper_languiage = '中文'  # 只需要对应语言，内容不限
+        self.supper_languiage_Unicode = r'[\u4e00-\u9fff]'  # 关键字语言在 Unicode 中占据连续的编码区间
 
         # #tag预设，请对应预设表格的sheetname或json的key进行设置
         self.pretag_json_path = './pretags.json' # 预设标签的JSON文件路径,若无excel则必要
@@ -76,6 +76,7 @@ class tag_producer():
         if args.sys not in ['webui', 'comfyui']:
             raise ValueError("sys参数必须为'webui'或'comfyui'")
         self.sys = args.sys
+        self.supper_languiage_Unicode = args.supper_languiage_Unicode
         self.sheetlist = args.pretag_others_key_words
         self.sheetlist.append(args.pretag_character_key_word)
         self.jobs = self.sheetlist.copy()
@@ -168,7 +169,7 @@ class tag_producer():
         print('已保存为JSON文件：', jsonpath)
 
     def get_cn(self, prompt):
-        return re.findall(r'[\u4e00-\u9fff]+[^,，]*', prompt)
+        return re.findall(rf'{self.supper_languiage_Unicode}+[^,，]*', prompt)
 
     def clean_commas(self, prompt: str):
         # 使用正则表达式将连续重复的逗号替换为单个逗号
