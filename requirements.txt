@@ -1,0 +1,5 @@
+modelscope
+numpy
+pandas
+hashlib
+google-genai

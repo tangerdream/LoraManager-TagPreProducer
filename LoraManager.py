@@ -1,3 +1,8 @@
+# 2025.06.16
+# LoraManager.py
+# v1
+# By Tangerdream
+
 import os
 import requests
 import time
@@ -5,7 +10,6 @@ import hashlib
 import json
 import warnings
 import modelscope
-import math
 
 
 def get_hash(file_path):
