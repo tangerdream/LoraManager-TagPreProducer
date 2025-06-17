@@ -238,11 +238,11 @@ if __name__ == "__main__":
     # os.environ['http_proxy'] = 'http://127.0.0.1:1090'
     # os.environ['https_proxy'] = 'http://127.0.0.1:1090'
 
-    base_models_path = r'H:\StableAI_draw\stable-diffusion-webui\models\lora\LoraByTanger\char\琪亚娜-终焉原皮and泳装and新年'
-
-
+    base_models_path = r'./'
+    json_path = r'./pretags.json'
     Civita_api_key='xxxxx'
-    run_LoraManager(base_models_path, '下载更新', classed_dir=None,use_json_from_modelscope=True,local_json_path=None,api_key=Civita_api_key)
+    
+    run_LoraManager(base_models_path, '下载更新', classed_dir=None,use_json_from_modelscope=True,local_json_path=json_path,api_key=Civita_api_key)
     # "classed_dir"是用来指定不同类型lora下载路径的，例子：
     # classed_dir={
     # '人物':path1,
