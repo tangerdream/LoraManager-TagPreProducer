@@ -156,7 +156,7 @@ def download_refreash_json_from_modelscope(base_models_path):
     os.system(f'modelscope download --dataset tangerboom/PretagsForBot pretags.json --local_dir {base_models_path}')
 
 
-def refresh_models_messages_by_json(base_models_path, classed_dir=None):
+def refresh_models_messages_by_json(base_models_path, classed_dir=None,use_json_from_modelscope=True,local_json_path=None):
     """
     "classed_dir"例子：
     classed_dir={
@@ -175,8 +175,13 @@ def refresh_models_messages_by_json(base_models_path, classed_dir=None):
         scan_all_models_messages(base_models_path)
     messages_dict = json.load(open(os.path.join(base_models_path, "models_messages.json"), "r", encoding="utf-8"))
 
-    download_refreash_json_from_modelscope(base_models_path)
-    pretags = json.load(open(os.path.join(base_models_path, "pretags.json"), "r", encoding="utf-8"))
+    if use_json_from_modelscope:
+        download_refreash_json_from_modelscope(base_models_path)
+        pretags = json.load(open(os.path.join(base_models_path, "pretags.json"), "r", encoding="utf-8"))
+    elif local_json_path:
+        pretags = json.load(open(local_json_path, "r", encoding="utf-8"))
+    else:
+        raise Exception("请指定json文件")
 
     classes = list(pretags.keys())[:-1]
     if not classed_dir:
@@ -214,14 +219,14 @@ def refresh_models_messages_by_json(base_models_path, classed_dir=None):
     refresh_models_messages_by_path(base_models_path)
 
 
-def run_LoraManager(base_models_path, command, classed_dir=None):
+def run_LoraManager(base_models_path, command, classed_dir=None,use_json_from_modelscope=True,local_json_path=None):
     # 扫描base_models_path路径下的模型信息，计算模型哈希值，保存到models_messages.json中
     if command == '扫描全部':
         scan_all_models_messages(base_models_path)
 
     # 下载 pretags.json 并且根据json信息下载模型
     elif command == '下载更新':
-        refresh_models_messages_by_json(base_models_path,classed_dir)
+        refresh_models_messages_by_json(base_models_path,classed_dir,use_json_from_modelscope,local_json_path)
 
     # 仅扫描base_models_path路径下的新模型，更新models_messages.json
     elif command == '本地更新':
@@ -237,7 +242,7 @@ if __name__ == "__main__":
 
 
 
-    run_LoraManager(base_models_path, '下载更新', classed_dir=None)
+    run_LoraManager(base_models_path, '下载更新', classed_dir=None,use_json_from_modelscope=True,local_json_path=None)
     # "classed_dir"是用来指定不同类型lora下载路径的，例子：
     # classed_dir={
     # '人物':path1,
